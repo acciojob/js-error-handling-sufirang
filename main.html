@@ -1,68 +1,23 @@
-class OutOfRangeError extends Error {
-  constructor(msg) {
-    super(msg);
-    this.name = "OutOfRangeError";
-  }
-}
+<!DOCTYPE html>
 
-class InvalidExprError extends Error {
-  constructor(msg) {
-    super(msg);
-    this.name = "InvalidExprError";
-  }
-}
+<html>
 
-function isOperator(char) {
-  return ["+", "-", "*", "/"].includes(char);
-}
+<head>
+	<link rel="stylesheet" href="styles.css">
+</head>
 
-function isInteger(str) {
-  return /^\d+$/.test(str);
-}
+<body>
+	<!-- the entire body must be written by student -->
+	<form>
+      <label for="input1">Input 1:</label>
+      <input type="text" id="input1" name="input1"><br><br>
+      <label for="input2">Input 2:</label>
+      <input type="text" id="input2" name="input2"><br><br>
+		  <button>Submit</button>
+    </form>
+    <script type="text/javascript" src="./script.js">
+</script>
 
-function evalString(expr) {
-  let prevChar = null;
+</body>
 
-  for (let i = 0; i < expr.length; i++) {
-    const char = expr[i];
-
-    if (char === " ") {
-      // skip spaces
-      continue;
-    } else if (isOperator(char)) {
-      // check for invalid operator combination
-      if (prevChar !== null && isOperator(prevChar)) {
-        throw new InvalidExprError(
-          "Expression should not have an invalid combination of operators"
-        );
-      }
-    } else if (!isInteger(char)) {
-      // check for invalid character
-      throw new OutOfRangeError(
-        "Expression should only consist of integers and +-/* characters"
-      );
-    }
-
-    prevChar = char;
-  }
-
-  // check for invalid starting operator
-  if (isOperator(expr[0])) {
-    throw new SyntaxError("Expression should not start with invalid operator");
-  }
-
-  // check for invalid ending operator
-  if (isOperator(expr[expr.length - 1])) {
-    throw new SyntaxError("Expression should not end with invalid operator");
-  }
-
-  // evaluate the expression
-  return eval(expr);
-}
-
-try {
-  const expr = "1 + 2 - 3 * 4 / -5";
-  console.log(evalString(expr));
-} catch (error) {
-  console.log(error.name + ": " + error.message);
-}
+</html>
